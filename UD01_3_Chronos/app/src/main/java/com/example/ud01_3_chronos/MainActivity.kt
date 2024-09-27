@@ -41,6 +41,8 @@ class MainActivity : AppCompatActivity() {
             if(running){
                 chrono.base = savedInstanceState.getLong(BASE_KEY)
                 chrono.start()
+            }else{
+                chrono.base = SystemClock.elapsedRealtime()- offset
             }
         }
         //Funcionalidad Botones
@@ -66,5 +68,41 @@ class MainActivity : AppCompatActivity() {
             chrono.base = SystemClock.elapsedRealtime()
         }
 
+    }
+ /*
+    //Aplicación pasa a segundo plano
+    override fun onStop() {
+        //Si estaba encendido, lo paro y guardo la variable offset
+        if(running){
+            offset = SystemClock.elapsedRealtime() - chrono.base
+            chrono.stop()
+        }
+        super.onStop()
+    }
+    //Aplicación vuelve a primer plano
+    override fun onRestart() {
+        //Si estaba encendido lo vuelvo a ejecutar
+        if(running){
+            chrono.base = SystemClock.elapsedRealtime()- offset
+            chrono.start()
+        }
+        super.onRestart()
+    }*/
+
+    //Pierde el foco
+    override fun onPause() {
+        if(running){
+            offset = SystemClock.elapsedRealtime() - chrono.base
+            chrono.stop()
+        }
+        super.onPause()
+    }
+    //Recupera el foco
+    override fun onResume() {
+        if(running){
+            chrono.base = SystemClock.elapsedRealtime()- offset
+            chrono.start()
+        }
+        super.onResume()
     }
 }
