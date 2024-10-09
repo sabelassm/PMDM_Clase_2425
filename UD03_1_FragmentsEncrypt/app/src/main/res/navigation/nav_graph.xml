@@ -23,5 +23,10 @@
     <fragment
         android:id="@+id/encryptFragment"
         android:name="com.example.ud03_1_fragmentsencrypt.EncryptFragment"
-        android:label="EncryptFragment" />
+        android:label="EncryptFragment" >
+        <argument
+            android:name="message"
+            app:argType="string" />
+
+    </fragment>
 </navigation>
