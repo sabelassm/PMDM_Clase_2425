@@ -9,7 +9,7 @@
     android:padding="16dp"
     android:name="androidx.navigation.fragment.NavHostFragment"
     app:navGraph="@navigation/nav_graph"
-    app:defaultNavHost="false"
+    app:defaultNavHost="true"
     >
 
 
