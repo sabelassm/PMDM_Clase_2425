@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">UD05_1_JustIt</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="type">¿Qué tipo de comida quieres?</string>
+    <string name="send">Send</string>
+    <string name="american">American</string>
+    <string name="chicken">Chicken</string>
+    <string name="vegan">Vegan</string>
+    <string name="cheese">Cheese</string>
+    <string name="tomato">Tomato</string>
+    <string name="alert_select_type">Select a type </string>
+    <string name="burguer_selected">Has seleccionado la hamburguesa </string>
+</resources>

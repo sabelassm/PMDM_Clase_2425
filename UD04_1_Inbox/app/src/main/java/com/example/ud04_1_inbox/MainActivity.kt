@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
@@ -15,6 +16,7 @@ import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,13 +32,30 @@ class MainActivity : AppCompatActivity() {
         val toolbar = findViewById<MaterialToolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
 
+        //Recuperar drawer layout
+        val drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
+
+
         //Controlador de navegación
-       val navHostFragment = supportFragmentManager.findFragmentById(R.id.container_fragment) as NavHostFragment
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.container_fragment) as NavHostFragment
         val navController = navHostFragment.navController
-        val appBarConfiguration = AppBarConfiguration.Builder(navController.graph).build()
-        toolbar.setupWithNavController(navController, appBarConfiguration)
 
 
+        val appBarConfiguration = AppBarConfiguration.Builder(navController.graph)
+
+        //Indico que hay un elemento openable
+        appBarConfiguration.setOpenableLayout(drawerLayout)
+        val appBarBuild = appBarConfiguration.build()
+
+        //Navigation View
+        val navigationView = findViewById<NavigationView>(R.id.nav_side)
+        navigationView.setupWithNavController(navController)
+
+        //Toolbar con Controller
+        toolbar.setupWithNavController(navController, appBarBuild)
+
+
+        //Bottombar con Controllwe
         val bottomBar = findViewById<BottomNavigationView>(R.id.botton_navigation)
         bottomBar.setupWithNavController(navController)
     }
