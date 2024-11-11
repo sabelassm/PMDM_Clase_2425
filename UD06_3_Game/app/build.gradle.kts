@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.example.ud06_3_game"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.ud06_3_game"
@@ -39,9 +39,8 @@ android {
 }
 
 dependencies {
-    implementation("androidx.navigation:navigation-fragment-ktx:2.8.3")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.8.2")
     implementation("androidx.navigation:navigation-ui-ktx:2.8.3")
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
