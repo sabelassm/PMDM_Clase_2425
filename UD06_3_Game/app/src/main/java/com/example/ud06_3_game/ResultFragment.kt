@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
 import com.example.ud06_3_game.databinding.FragmentResultBinding
 
 class ResultFragment : Fragment() {
@@ -23,9 +24,11 @@ class ResultFragment : Fragment() {
         //return inflater.inflate(R.layout.fragment_result, container, false)
         _binding = FragmentResultBinding.inflate(inflater, container, false)
         val view = binding.root
-
+        binding.textResult.text = model.resultMessage()
         binding.btnRestart.setOnClickListener{
-            Toast.makeText(activity, model.targetWord, Toast.LENGTH_LONG).show()
+            //Toast.makeText(activity, model.targetWord, Toast.LENGTH_LONG).show()
+            model.restart()
+            view.findNavController().navigate(R.id.action_resultFragment2_to_gameFragment2)
         }
         return view
     }

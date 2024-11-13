@@ -1,31 +1,44 @@
 package com.example.ud06_3_game
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class GameViewModel : ViewModel() {
 
     val words = listOf("Calamar", "Android", "Caballo", "Despiste", "Sabela", "Error")
     var targetWord = words.random().uppercase()
-    var targetWordHidden = ""
-    var lives = 7
+    var targetWordHidden = MutableLiveData<String>()
+    var lives = MutableLiveData<Int>(7)
     var attempts = mutableListOf<Char>()
     init {
-    // Inicializamos la palabra con _
-        targetWordHidden = showTargetWordHidden(' ')
+        // Inicializamos la palabra con _
+        targetWordHidden.value = showTargetWordHidden()
     }
     //Genera la representación visual
-    fun showTargetWordHidden(charAttempt: Char) =
+    fun showTargetWordHidden() =
         targetWord.map {
-            if(it == charAttempt.toUpperCase()) it
+            if(it in attempts) it
             else '_'
-        }.joinToString(" ")
+        }.joinToString("")
 
     //Jugar
     fun guess(charAttempt : Char){
-        targetWordHidden = showTargetWordHidden(charAttempt)
-        if (!targetWord.contains(charAttempt)) lives -= 1
+        attempts.add(charAttempt.uppercaseChar())
+        targetWordHidden.value = showTargetWordHidden()
+        if (!targetWord.contains(charAttempt.uppercaseChar())) lives.value = lives.value?.minus(1)
     }
 
-    fun win() = targetWord == targetWordHidden
-    fun lost() = lives <= 0
+    fun resultMessage() =
+        if(win()) "Ganaste!"
+        else "Perdiste!\n La palabra secreta era $targetWord"
+
+    fun restart(){
+        attempts.clear()
+        lives.value = 7
+        targetWord = words.random().uppercase()
+        targetWordHidden.value = showTargetWordHidden()
+    }
+
+    fun win() = targetWord == targetWordHidden.value
+    fun lost() = lives.value?: 0<= 0
 }
